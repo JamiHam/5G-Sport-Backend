@@ -19,7 +19,7 @@ public class Consumer {
     public static void main(String[] args) {
         String bootstrapServers = "127.0.0.1:9092";
         String groupId = "5G-Sport";
-        String topic = "sensor-data";
+        String topic = "sensor_data";
 
         Properties properties = new Properties();
         properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
