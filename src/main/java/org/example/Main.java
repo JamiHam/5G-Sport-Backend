@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.kafka.Consumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
