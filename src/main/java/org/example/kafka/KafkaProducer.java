@@ -9,7 +9,10 @@ public class KafkaProducer {
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
 
-    public void sendMessage(String message) {
-        kafkaTemplate.send("sensor_data", message);
+    public void sendMessage(String message) throws InterruptedException {
+        while (true) {
+            Thread.sleep(1000);
+            kafkaTemplate.send("sensor_data", message);
+        }
     }
 }
