@@ -1,3 +1,5 @@
 FROM openjdk:21
-COPY target/5G-Sport-Backend-1.0-SNAPSHOT.jar app.jar
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+RUN mkdir /target
+COPY app.jar /target/app.jar
+WORKDIR /target
+ENTRYPOINT ["java", "-jar", "app.jar"]
