@@ -32,7 +32,7 @@ jobs:
 
     - uses: actions/upload-artifact@v4
       with:
-        path: app.jar
+        path: target/5G-Sport-Backend-1.0-SNAPSHOT.jar
 
   publish:
     name: Publish to Docker Hub
@@ -44,7 +44,7 @@ jobs:
 
       - uses: actions/download-artifact@v4
         with:
-          path: app.jar
+          path: target/5G-Sport-Backend-1.0-SNAPSHOT.jar
 
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
