@@ -29,6 +29,9 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+    - uses: actions/upload-artifact@main
+      with:
+        path: target/5G-Sport-Backend-1.0-SNAPSHOT.jar
 
   publish:
     name: Publish to Docker Hub
@@ -37,10 +40,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@main
+        with:
+          path: target/5G-Sport-Backend-1.0-SNAPSHOT.jar
+
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
       - name: Build container image
         run: docker build -t ${{ secrets.DOCKER_REPOSITORY }}:latest .
+
       - name: Publish Docker image
         run: docker push ${{ secrets.DOCKER_REPOSITORY }}
-
