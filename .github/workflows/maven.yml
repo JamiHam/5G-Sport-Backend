@@ -32,7 +32,8 @@ jobs:
 
     - uses: actions/upload-artifact@v4
       with:
-        path: target/5G-Sport-Backend-1.0-SNAPSHOT.jar
+        name: jar-artifact
+        path: ${{ github.workspace }}/target/5G-Sport-Backend-1.0-SNAPSHOT.jar
 
   publish:
     name: Publish to Docker Hub
@@ -44,7 +45,8 @@ jobs:
 
       - uses: actions/download-artifact@v4
         with:
-          path: target/5G-Sport-Backend-1.0-SNAPSHOT.jar
+          name: jar-artifact
+          path: target/
 
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
