@@ -13,34 +13,29 @@ import java.util.List;
 
 @Service
 public class WebSocketHandler extends TextWebSocketHandler {
-    private List<WebSocketSession> webSocketSessions = Collections.synchronizedList(new ArrayList<>());
+    private List<WebSocketSession> sessions = Collections.synchronizedList(new ArrayList<>());
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         super.afterConnectionEstablished(session);
         System.out.println(session.getId() + " connected");
-        webSocketSessions.add(session);
+        sessions.add(session);
     }
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         super.afterConnectionClosed(session, status);
         System.out.println(session.getId() + " disconnected");
-        webSocketSessions.remove(session);
-    }
-
-    @Override
-    public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        for (WebSocketSession webSocketSession : webSocketSessions) {
-            if (webSocketSession != session) {
-                webSocketSession.sendMessage(message);
-            }
-        }
+        sessions.remove(session);
     }
 
     public void broadcast(TextMessage message) throws IOException {
-        for (WebSocketSession webSocketSession : webSocketSessions) {
+        for (WebSocketSession webSocketSession : sessions) {
             webSocketSession.sendMessage(message);
         }
+    }
+
+    public List<WebSocketSession> getSessions() {
+        return sessions;
     }
 }
