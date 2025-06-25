@@ -10,12 +10,12 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer {
     @Autowired
-    private WebSocketHandler webSocketHandler;
+    private WebSocketHandler handler;
 
     @Override
-    public void registerWebSocketHandlers(WebSocketHandlerRegistry webSocketHandlerRegistry) {
-        webSocketHandlerRegistry
-                .addHandler(webSocketHandler, "/")
+    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+        registry
+                .addHandler(handler, "/")
                 .setAllowedOrigins("*");
     }
 }
