@@ -42,6 +42,14 @@
             <version>3.3.6</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.springframework.kafka/spring-kafka-test -->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka-test</artifactId>
+            <version>3.3.6</version>
+            <scope>test</scope>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
