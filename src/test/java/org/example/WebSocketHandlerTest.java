@@ -1,12 +1,13 @@
 package org.example;
 
-import org.junit.jupiter.api.Assertions;
+import org.example.websocket.WebSocketHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -23,7 +24,7 @@ public class WebSocketHandlerTest {
         WebSocketSession session = mock(WebSocketSession.class);
 
         handler.afterConnectionEstablished(session);
-        Assertions.assertEquals(1, handler.getSessions().size(), "There should be 1 session");
+        assertEquals(1, handler.getSessions().size(), "There should be 1 session");
     }
 
     @Test
@@ -32,7 +33,7 @@ public class WebSocketHandlerTest {
         handler.afterConnectionEstablished(session);
 
         handler.afterConnectionClosed(session, new CloseStatus(1000));
-        Assertions.assertEquals(0, handler.getSessions().size(), "There should be 0 sessions");
+        assertEquals(0, handler.getSessions().size(), "There should be 0 sessions");
     }
 
     @Test
