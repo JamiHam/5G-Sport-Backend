@@ -3,6 +3,7 @@ package org.example.kafka;
 import org.example.websocket.WebSocketHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;
@@ -14,7 +15,9 @@ import java.util.concurrent.CountDownLatch;
 public class KafkaConsumer {
     private static final Logger LOGGER = LoggerFactory.getLogger(KafkaConsumer.class);
 
-    private WebSocketHandler handler = null;
+    @Autowired
+    private WebSocketHandler handler;
+
     private CountDownLatch latch = new CountDownLatch(1);
     private String payload;
 
@@ -41,9 +44,5 @@ public class KafkaConsumer {
 
     public String getPayload() {
         return payload;
-    }
-
-    public void setHandler(WebSocketHandler handler) {
-        this.handler = handler;
     }
 }
