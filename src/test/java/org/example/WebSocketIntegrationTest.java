@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.websocket.WebSocketConfig;
+import org.example.websocket.WebSocketHandler;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,23 +19,20 @@ import java.util.concurrent.CompletableFuture;
 
 @SpringBootTest(classes = {WebSocketConfig.class, WebSocketHandler.class}, webEnvironment = WebEnvironment.RANDOM_PORT)
 @EnableAutoConfiguration
-public class WebSocketConnectionTest {
+public class WebSocketIntegrationTest {
     @Autowired
-    private WebSocketHandler handler;
+    private WebSocketHandler serverHandler;
 
     @LocalServerPort
     private int port;
 
-    private WebSocketClient client;
-    private ClientWebSocketHandler clientHandler;
-    private CompletableFuture<String> future; // Represents a future result of an asynchronous operation.
+    private final WebSocketClient client = new StandardWebSocketClient();
+    private final ClientWebSocketHandler clientHandler = new ClientWebSocketHandler();
     private WebSocketSession session;
 
     @BeforeEach
-    public void setup() {
-        future = new CompletableFuture<>();
-        client = new StandardWebSocketClient();
-        clientHandler = new ClientWebSocketHandler();
+    public void reset() {
+        clientHandler.resetLatch();
     }
 
     private void connect() {
@@ -47,35 +46,36 @@ public class WebSocketConnectionTest {
 
     @Test
     @Timeout(5)
-    public void connectionEstablishedTest() throws IOException {
-        clientHandler.setFuture(future);
+    public void connectionCanBeEstablished() throws IOException, InterruptedException {
         connect();
-
-        // future.join() will be executed after future.complete() is called in clientHandler's afterConnectionEstablished() method.
-        assertEquals("connection established", future.join(), "afterConnectionEstablished method not executed");
-
-        clientHandler.setFuture(null);
+        clientHandler.getLatch().await();
+        assertEquals("Connection established", clientHandler.getState(), "afterConnectionEstablished method not executed");
         disconnect();
     }
 
     @Test
     @Timeout(5)
-    public void connectionClosedTest() throws IOException {
+    public void connectionCanBeClosed() throws IOException, InterruptedException {
         connect();
-        clientHandler.setFuture(future);
+        clientHandler.getLatch().await();
         disconnect();
-        assertEquals("connection closed", future.join(), "afterConnectionClosed method not executed");
+        assertEquals("Connection closed", clientHandler.getState(), "afterConnectionClosed method not executed");
     }
 
     @Test
     @Timeout(5)
-    public void broadcastTest() throws IOException {
+    public void broadcastTest() throws IOException, InterruptedException {
         connect();
-        clientHandler.setFuture(future);
-        handler.broadcast(new TextMessage("test"));
-        assertEquals("test", future.join(), "handleTextMessage method not executed");
+        clientHandler.getLatch().await();
+        clientHandler.resetLatch();
 
-        clientHandler.setFuture(null);
+        String data = "test";
+        serverHandler.broadcast(new TextMessage(data));
+        clientHandler.getLatch().await();
+
+        assertEquals("Message received", clientHandler.getState(), "handleTextMessage method not executed");
+        assertEquals(data, clientHandler.getPayload(), "Received incorrect data");
+
         disconnect();
     }
 }
