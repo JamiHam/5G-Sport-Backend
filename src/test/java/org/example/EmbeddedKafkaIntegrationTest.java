@@ -6,11 +6,11 @@ import org.example.kafka.KafkaProducer;
 import org.example.websocket.WebSocketHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.web.socket.TextMessage;
 
 import java.io.IOException;
@@ -28,7 +28,7 @@ public class EmbeddedKafkaIntegrationTest {
     @Autowired
     private KafkaProducer producer;
 
-    @Mock
+    @MockitoBean
     private WebSocketHandler handler;
 
     @Value("${spring.kafka.topic}")
@@ -49,7 +49,6 @@ public class EmbeddedKafkaIntegrationTest {
 
     @Test
     public void broadcastIsCalled() throws InterruptedException, IOException {
-        consumer.setHandler(handler);
         String data = "test data";
         producer.send(topic, data);
         consumer.getLatch().await();
