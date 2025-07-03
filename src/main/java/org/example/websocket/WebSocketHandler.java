@@ -27,12 +27,17 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        LOGGER.info("WebSocket session '{}' disconnected", session.getId());
+        LOGGER.info("WebSocket session '{}' disconnected with status '{}'", session.getId(), status);
         sessions.remove(session);
     }
 
+    @Override
+    public void handleTextMessage(WebSocketSession session, TextMessage message) {
+        LOGGER.info("Received message from session '{}' = '{}'", session.getId(), message.getPayload());
+    }
+
     public void broadcast(TextMessage message) throws IOException {
-        LOGGER.info("Broadcasting message to {} connected WebSocket session(s) = {}", sessions.size(), message);
+        LOGGER.info("Broadcasting message to {} connected WebSocket session(s) = '{}'", sessions.size(), message.getPayload());
         for (WebSocketSession webSocketSession : sessions) {
             webSocketSession.sendMessage(message);
         }
