@@ -1,6 +1,5 @@
 package org.example;
 
-import org.example.kafka.KafkaConfig;
 import org.example.kafka.KafkaConsumer;
 import org.example.kafka.KafkaProducer;
 import org.example.websocket.WebSocketHandler;
@@ -8,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -19,8 +19,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-@SpringBootTest(classes = { KafkaConfig.class, KafkaConsumer.class, KafkaProducer.class })
-@EmbeddedKafka(ports = 9092)
+@SpringBootTest(classes = { KafkaConsumer.class, KafkaProducer.class })
+@EnableAutoConfiguration
+@EmbeddedKafka(bootstrapServersProperty = "spring.kafka.bootstrap-servers")
 public class EmbeddedKafkaIntegrationTest {
     @Autowired
     private KafkaConsumer consumer;
