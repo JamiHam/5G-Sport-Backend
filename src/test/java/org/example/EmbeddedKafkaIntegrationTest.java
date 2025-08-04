@@ -1,12 +1,12 @@
 package org.example;
 
+import org.example.database.DataService;
 import org.example.kafka.KafkaConsumer;
 import org.example.kafka.KafkaProducer;
 import org.example.websocket.WebSocketHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.test.context.EmbeddedKafka;
@@ -14,8 +14,6 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.web.socket.TextMessage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.times;
@@ -33,6 +31,9 @@ public class EmbeddedKafkaIntegrationTest {
 
     @MockitoBean
     private WebSocketHandler handler;
+
+    @MockitoBean
+    private DataService dataService;
 
     private String data = "test data";
 
