@@ -1,10 +1,13 @@
 package org.example.database.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
+import org.example.database.deserializer.GNSSDeserializer;
 
 @Entity
 @Table(name = "gnss")
-public class Gnss {
+@JsonDeserialize(using = GNSSDeserializer.class)
+public class GNSS {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,16 +31,7 @@ public class Gnss {
     @JoinColumn(name = "pico_id")
     private Pico pico;
 
-    protected Gnss() { }
-
-    public Gnss(String deviceId, String date, double latitude, double longitude, int timestampUTC, int timestampMs) {
-        this.deviceId = deviceId;
-        this.date = date;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.timestampUTC = timestampUTC;
-        this.timestampMs = timestampMs;
-    }
+    public GNSS() { }
 
     public String getDate() {
         return date;
