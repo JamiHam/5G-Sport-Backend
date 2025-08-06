@@ -8,11 +8,7 @@ public class Pico {
     @Id
     private String id;
 
-    protected Pico() {}
-
-    public Pico(String id) {
-        this.id = id;
-    }
+    public Pico() {}
 
     public String getId() {
         return id;
