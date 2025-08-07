@@ -88,4 +88,17 @@ public class GNSS {
     public void setPico(Pico pico) {
         this.pico = pico;
     }
+
+    @Override
+    public String toString() {
+        return "{ id: " + id
+                + ", device_id: " + deviceId
+                + ", date: " + date
+                + ", latitude: " + latitude
+                + ", longitude: " + longitude
+                + ", timestamp_utc: " + timestampUTC
+                + ", timestamp_ms: " + timestampMs
+                + ", pico_id: " + pico.getId()
+                + " }";
+    }
 }

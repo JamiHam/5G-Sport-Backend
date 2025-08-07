@@ -32,4 +32,12 @@ public class RrData {
     public void setHeartRate(HeartRate heartRate) {
         this.heartRate = heartRate;
     }
+
+    @Override
+    public String toString() {
+        return "{ id: " + id
+                + ", value: " + value
+                + ", heart_rate_id: " + heartRate.getId()
+                + " }";
+    }
 }

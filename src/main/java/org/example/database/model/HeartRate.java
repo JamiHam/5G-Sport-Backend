@@ -36,6 +36,10 @@ public class HeartRate {
 
     public HeartRate() {}
 
+    public Long getId() {
+        return id;
+    }
+
     public double getAverageBPM() {
         return averageBPM;
     }
@@ -82,5 +86,16 @@ public class HeartRate {
 
     public void addRrData(RrData data) {
         rrData.add(data);
+    }
+
+    @Override
+    public String toString() {
+        return "{ id: " + id
+                + ", average_bpm: " + averageBPM
+                + ", timestamp_utc: " + timestampUTC
+                + ", timestamp_ms: " + timestampMs
+                + ", pico_id: " + pico.getId()
+                + ", movesense_id: " + movesense.getId()
+                + " }";
     }
 }

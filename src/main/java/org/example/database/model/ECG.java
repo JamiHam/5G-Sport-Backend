@@ -33,6 +33,10 @@ public class ECG {
 
     public ECG() {}
 
+    public Long getId() {
+        return id;
+    }
+
     public int getTimestampUTC() {
         return timestampUTC;
     }
@@ -71,5 +75,15 @@ public class ECG {
 
     public void addECGSample(ECGSample sample) {
         ecgSamples.add(sample);
+    }
+
+    @Override
+    public String toString() {
+        return "{ id: " + id
+                + ", timestamp_utc: " + timestampUTC
+                + ", timestamp_ms: " + timestampMs
+                + ", pico_id: " + pico.getId()
+                + ", movesense_id: " + movesense.getId()
+                + " }";
     }
 }
