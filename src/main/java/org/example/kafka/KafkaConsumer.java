@@ -52,13 +52,13 @@ public class KafkaConsumer {
                 dataService.saveIMUData(message);
                 break;
             case "sensors.hr":
-                dataService.saveHeartRateData(message);
+                dataService.handleHeartRateData(message);
                 break;
             case "sensors.ecg":
-                dataService.saveECGData(message);
+                dataService.handleECGData(message);
                 break;
             case "sensors.gnss":
-                dataService.saveGNSSData(message);
+                dataService.handleGNSSData(message);
                 break;
         }
     }
