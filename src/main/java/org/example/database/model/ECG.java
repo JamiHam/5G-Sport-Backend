@@ -29,11 +29,9 @@ public class ECG {
     private Movesense movesense;
 
     @Transient
-    ArrayList<Integer> sampleValues;
+    ArrayList<ECGSample> ecgSamples = new ArrayList<ECGSample>();
 
-    public ECG() {
-        sampleValues = new ArrayList<>();
-    }
+    public ECG() {}
 
     public int getTimestampUTC() {
         return timestampUTC;
@@ -67,11 +65,11 @@ public class ECG {
         this.movesense = movesense;
     }
 
-    public ArrayList<Integer> getSampleValues() {
-        return sampleValues;
+    public ArrayList<ECGSample> getECGSamples() {
+        return ecgSamples;
     }
 
-    public void addSampleValue(int value) {
-        sampleValues.add(value);
+    public void addECGSample(ECGSample sample) {
+        ecgSamples.add(sample);
     }
 }

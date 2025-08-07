@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.example.database.model.ECG;
+import org.example.database.model.ECGSample;
 import org.example.database.model.Movesense;
 import org.example.database.model.Pico;
 
@@ -31,7 +32,10 @@ public class ECGDeserializer extends JsonDeserializer<ECG> {
 
         Iterator<JsonNode> samples = node.get("Samples").values();
         while(samples.hasNext()) {
-            ecg.addSampleValue(samples.next().intValue());
+            ECGSample sample = new ECGSample();
+            sample.setValue(samples.next().intValue());
+            sample.setEcg(ecg);
+            ecg.addECGSample(sample);
         }
 
         return ecg;
