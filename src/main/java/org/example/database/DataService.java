@@ -2,9 +2,7 @@ package org.example.database;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.database.model.ECG;
-import org.example.database.model.ECGSample;
-import org.example.database.model.GNSS;
+import org.example.database.model.*;
 import org.example.database.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +21,12 @@ public class DataService {
     MovesenseRepository movesenseRepository;
 
     @Autowired
+    HeartRateRepository heartRateRepository;
+
+    @Autowired
+    RrDataRepository rrDataRepository;
+
+    @Autowired
     ECGRepository ecgRepository;
 
     @Autowired
@@ -35,8 +39,15 @@ public class DataService {
         System.out.println("saveImuData called");
     }
 
-    public void saveHeartRateData(String message) {
+    public void saveHeartRateData(String message) throws JsonProcessingException {
         System.out.println("saveHeartRateData called");
+
+        HeartRate heartRate = objectMapper.readValue(message, HeartRate.class);
+        heartRateRepository.save(heartRate);
+
+        saveRrData(heartRate);
+
+        LOGGER.info("Heart rate data saved to database = '{}'", message);
     }
 
     public void saveECGData(String message) throws JsonProcessingException {
@@ -55,11 +66,14 @@ public class DataService {
         LOGGER.info("GNSS data saved to database = '{}'", message);
     }
 
+    private void saveRrData(HeartRate heartRate) {
+        for (RrData rrData : heartRate.getRrData()) {
+            rrDataRepository.save(rrData);
+        }
+    }
+
     private void saveECGSamples(ECG ecg) {
-        for(int value : ecg.getSampleValues()) {
-            ECGSample sample = new ECGSample();
-            sample.setEcg(ecg);
-            sample.setValue(value);
+        for (ECGSample sample : ecg.getECGSamples()) {
             ecgSampleRepository.save(sample);
         }
     }
