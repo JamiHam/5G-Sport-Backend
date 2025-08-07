@@ -51,7 +51,7 @@ public class KafkaConsumer {
             case "sensors.imu":
                 dataService.saveIMUData(message);
                 break;
-            case "sensors.heart_rate":
+            case "sensors.hr":
                 dataService.saveHeartRateData(message);
                 break;
             case "sensors.ecg":
