@@ -49,7 +49,7 @@ public class KafkaConsumer {
     private void saveToDatabase(String message, String topic) throws JsonProcessingException {
         switch (topic) {
             case "sensors.imu":
-                dataService.saveIMUData(message);
+                dataService.handleIMUData(message);
                 break;
             case "sensors.hr":
                 dataService.handleHeartRateData(message);

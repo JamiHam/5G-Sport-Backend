@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class DataService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DataService.class);
@@ -19,6 +21,12 @@ public class DataService {
 
     @Autowired
     MovesenseRepository movesenseRepository;
+
+    @Autowired
+    IMURepository imuRepository;
+
+    @Autowired
+    IMUCoordinateRepository imuCoordinateRepository;
 
     @Autowired
     HeartRateRepository heartRateRepository;
@@ -35,8 +43,21 @@ public class DataService {
     @Autowired
     GNSSRepository gnssRepository;
 
-    public void saveIMUData(String message) {
-        System.out.println("saveImuData called");
+    public void handleIMUData(String message) throws JsonProcessingException {
+        IMU imu = objectMapper.readValue(message, IMU.class);
+        Pico pico = imu.getPico();
+        Movesense movesense = imu.getMovesense();
+
+        if (!picoExistsInDatabase(pico)) {
+            savePico(pico);
+        }
+
+        if (!movesenseExistsInDatabase(movesense)) {
+            saveMovesense(movesense);
+        }
+
+        saveIMUData(imu);
+        saveIMUCoordinates(imu.getIMUCoordinates());
     }
 
     public void handleHeartRateData(String message) throws JsonProcessingException {
@@ -53,7 +74,7 @@ public class DataService {
         }
 
         saveHeartRateData(heartRate);
-        saveRrData(heartRate);
+        saveRrData(heartRate.getRrData());
     }
 
     public void handleECGData(String message) throws JsonProcessingException {
@@ -70,7 +91,7 @@ public class DataService {
         }
 
         saveECGData(ecg);
-        saveECGSamples(ecg);
+        saveECGSamples(ecg.getECGSamples());
     }
 
     public void handleGNSSData(String message) throws JsonProcessingException {
@@ -102,6 +123,11 @@ public class DataService {
         LOGGER.info("GNSS data saved to database = '{}'", gnss);
     }
 
+    private void saveIMUData(IMU imu) {
+        imuRepository.save(imu);
+        LOGGER.info("IMU data saved to database = '{}'", imu);
+    }
+
     private void saveHeartRateData(HeartRate heartRate) {
         heartRateRepository.save(heartRate);
         LOGGER.info("Heart rate data saved to database = '{}'", heartRate);
@@ -117,17 +143,24 @@ public class DataService {
         LOGGER.info("ECG data saved to database = '{}'", ecg);
     }
 
-    private void saveRrData(HeartRate heartRate) {
-        for (RrData rrData : heartRate.getRrData()) {
+    private void saveIMUCoordinates(ArrayList<IMUCoordinate> coordinates) {
+        for (IMUCoordinate coordinate : coordinates) {
+            imuCoordinateRepository.save(coordinate);
+            LOGGER.info("IMU coordinate saved to database = '{}'", coordinate);
+        }
+    }
+
+    private void saveRrData(ArrayList<RrData> rrDataArray) {
+        for (RrData rrData : rrDataArray) {
             rrDataRepository.save(rrData);
             LOGGER.info("rr data saved to database = '{}'", rrData);
         }
     }
 
-    private void saveECGSamples(ECG ecg) {
-        for (ECGSample sample : ecg.getECGSamples()) {
+    private void saveECGSamples(ArrayList<ECGSample> samples) {
+        for (ECGSample sample : samples) {
             ecgSampleRepository.save(sample);
-            LOGGER.info("ECG sample saved to database = '{}'", sample.toString());
+            LOGGER.info("ECG sample saved to database = '{}'", sample);
         }
     }
 }
