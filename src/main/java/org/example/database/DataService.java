@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class DataService {
@@ -23,10 +23,10 @@ public class DataService {
     MovesenseRepository movesenseRepository;
 
     @Autowired
-    IMURepository imuRepository;
+    ImuRepository imuRepository;
 
     @Autowired
-    IMUCoordinateRepository imuCoordinateRepository;
+    ImuCoordinateRepository imuCoordinateRepository;
 
     @Autowired
     HeartRateRepository heartRateRepository;
@@ -35,16 +35,72 @@ public class DataService {
     RrDataRepository rrDataRepository;
 
     @Autowired
-    ECGRepository ecgRepository;
+    EcgRepository ecgRepository;
 
     @Autowired
-    ECGSampleRepository ecgSampleRepository;
+    EcgSampleRepository ecgSampleRepository;
 
     @Autowired
-    GNSSRepository gnssRepository;
+    GnssRepository gnssRepository;
+
+    public Imu findIMUById(long id) {
+        Imu imu = imuRepository.findById(id);
+        List<ImuCoordinate> coordinates = imuCoordinateRepository.findByImuId(imu.getId());
+        imu.setImuCoordinates(coordinates);
+        return imu;
+    }
+
+    public List<Imu> findImuByTimestampUtcBetween(int start, int end) {
+        List<Imu> imuList = imuRepository.findByTimestampUtcBetween(start, end);
+        for (Imu imu : imuList) {
+            List<ImuCoordinate> coordinates = imuCoordinateRepository.findByImuId(imu.getId());
+            imu.setImuCoordinates(coordinates);
+        }
+        return imuList;
+    }
+
+    public HeartRate findHeartRateById(long id) {
+        HeartRate heartRate = heartRateRepository.findById(id);
+        List<RrData> rrData = rrDataRepository.findByHeartRateId(id);
+        heartRate.setRrData(rrData);
+        return heartRate;
+    }
+
+    public List<HeartRate> findHeartRateByTimestampUtcBetween(int start, int end) {
+        List<HeartRate> heartRateList = heartRateRepository.findByTimestampUtcBetween(start, end);
+        for (HeartRate heartRate : heartRateList) {
+            List<RrData> rrData = rrDataRepository.findByHeartRateId(heartRate.getId());
+            heartRate.setRrData(rrData);
+        }
+        return heartRateList;
+    }
+
+    public Gnss findGnssById(long id) {
+        return gnssRepository.findById(id);
+    }
+
+    public List<Gnss> findGnssByTimestampUtcBetween(int start, int end) {
+        return gnssRepository.findByTimestampUtcBetween(start, end);
+    }
+
+    public Ecg findEcgById(long id) {
+        Ecg ecg = ecgRepository.findById(id);
+        List<EcgSample> samples = ecgSampleRepository.findByEcgId(ecg.getId());
+        ecg.setEcgSamples(samples);
+        return ecg;
+    }
+
+    public List<Ecg> findEcgByTimestampUtcBetween(int start, int end) {
+        List<Ecg> ecgList = ecgRepository.findByTimestampUtcBetween(start, end);
+        for (Ecg ecg : ecgList) {
+            List<EcgSample> samples = ecgSampleRepository.findByEcgId(ecg.getId());
+            ecg.setEcgSamples(samples);
+        }
+        return ecgList;
+    }
 
     public void handleIMUData(String message) throws JsonProcessingException {
-        IMU imu = objectMapper.readValue(message, IMU.class);
+        Imu imu = objectMapper.readValue(message, Imu.class);
         Pico pico = imu.getPico();
         Movesense movesense = imu.getMovesense();
 
@@ -57,7 +113,7 @@ public class DataService {
         }
 
         saveIMUData(imu);
-        saveIMUCoordinates(imu.getIMUCoordinates());
+        saveIMUCoordinates(imu.getImuCoordinates());
     }
 
     public void handleHeartRateData(String message) throws JsonProcessingException {
@@ -77,8 +133,8 @@ public class DataService {
         saveRrData(heartRate.getRrData());
     }
 
-    public void handleECGData(String message) throws JsonProcessingException {
-        ECG ecg = objectMapper.readValue(message, ECG.class);
+    public void handleEcgData(String message) throws JsonProcessingException {
+        Ecg ecg = objectMapper.readValue(message, Ecg.class);
         Pico pico = ecg.getPico();
         Movesense movesense = ecg.getMovesense();
 
@@ -90,19 +146,19 @@ public class DataService {
             saveMovesense(movesense);
         }
 
-        saveECGData(ecg);
-        saveECGSamples(ecg.getECGSamples());
+        saveEcgData(ecg);
+        saveEcgSamples(ecg.getEcgSamples());
     }
 
-    public void handleGNSSData(String message) throws JsonProcessingException {
-        GNSS gnss = objectMapper.readValue(message, GNSS.class);
+    public void handleGnssData(String message) throws JsonProcessingException {
+        Gnss gnss = objectMapper.readValue(message, Gnss.class);
         Pico pico = gnss.getPico();
 
         if (!picoExistsInDatabase(pico)) {
             savePico(pico);
         }
 
-        saveGNSSData(gnss);
+        saveGnssData(gnss);
     }
 
     private boolean picoExistsInDatabase(Pico pico) {
@@ -118,12 +174,12 @@ public class DataService {
         LOGGER.info("Raspberry Pi Pico saved to database = '{}'", pico.getId());
     }
 
-    private void saveGNSSData(GNSS gnss) {
+    private void saveGnssData(Gnss gnss) {
         gnssRepository.save(gnss);
         LOGGER.info("GNSS data saved to database = '{}'", gnss);
     }
 
-    private void saveIMUData(IMU imu) {
+    private void saveIMUData(Imu imu) {
         imuRepository.save(imu);
         LOGGER.info("IMU data saved to database = '{}'", imu);
     }
@@ -138,27 +194,27 @@ public class DataService {
         LOGGER.info("Movesense saved to database = '{}'", movesense.getId());
     }
 
-    private void saveECGData(ECG ecg) {
+    private void saveEcgData(Ecg ecg) {
         ecgRepository.save(ecg);
         LOGGER.info("ECG data saved to database = '{}'", ecg);
     }
 
-    private void saveIMUCoordinates(ArrayList<IMUCoordinate> coordinates) {
-        for (IMUCoordinate coordinate : coordinates) {
+    private void saveIMUCoordinates(List<ImuCoordinate> coordinates) {
+        for (ImuCoordinate coordinate : coordinates) {
             imuCoordinateRepository.save(coordinate);
             LOGGER.info("IMU coordinate saved to database = '{}'", coordinate);
         }
     }
 
-    private void saveRrData(ArrayList<RrData> rrDataArray) {
+    private void saveRrData(List<RrData> rrDataArray) {
         for (RrData rrData : rrDataArray) {
             rrDataRepository.save(rrData);
             LOGGER.info("rr data saved to database = '{}'", rrData);
         }
     }
 
-    private void saveECGSamples(ArrayList<ECGSample> samples) {
-        for (ECGSample sample : samples) {
+    private void saveEcgSamples(List<EcgSample> samples) {
+        for (EcgSample sample : samples) {
             ecgSampleRepository.save(sample);
             LOGGER.info("ECG sample saved to database = '{}'", sample);
         }
