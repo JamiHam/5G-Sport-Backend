@@ -1,13 +1,17 @@
 package org.example.database.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import org.example.database.deserializer.IMUDeserializer;
+import org.example.database.deserializer.IMUSerializer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "imu")
+@JsonSerialize(using = IMUSerializer.class)
 @JsonDeserialize(using = IMUDeserializer.class)
 public class IMU {
     @Id
@@ -29,7 +33,7 @@ public class IMU {
     private Movesense movesense;
 
     @Transient
-    ArrayList<IMUCoordinate> imuCoordinates = new ArrayList<IMUCoordinate>();
+    List<IMUCoordinate> imuCoordinates = new ArrayList<IMUCoordinate>();
 
     public IMU() {}
 
@@ -69,8 +73,12 @@ public class IMU {
         this.movesense = movesense;
     }
 
-    public ArrayList<IMUCoordinate> getIMUCoordinates() {
+    public List<IMUCoordinate> getIMUCoordinates() {
         return imuCoordinates;
+    }
+
+    public void setIMUCoordinates(List<IMUCoordinate> imuCoordinates) {
+        this.imuCoordinates = imuCoordinates;
     }
 
     public void addIMUCoordinate(IMUCoordinate coordinate) {
