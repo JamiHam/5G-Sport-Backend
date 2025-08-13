@@ -1,13 +1,17 @@
 package org.example.database.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import org.example.database.deserializer.ECGDeserializer;
+import org.example.database.deserializer.ECGSerializer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "ecg")
+@JsonSerialize(using = ECGSerializer.class)
 @JsonDeserialize(using = ECGDeserializer.class)
 public class ECG {
     @Id
@@ -29,7 +33,7 @@ public class ECG {
     private Movesense movesense;
 
     @Transient
-    ArrayList<ECGSample> ecgSamples = new ArrayList<ECGSample>();
+    List<ECGSample> ecgSamples = new ArrayList<ECGSample>();
 
     public ECG() {}
 
@@ -69,8 +73,12 @@ public class ECG {
         this.movesense = movesense;
     }
 
-    public ArrayList<ECGSample> getECGSamples() {
+    public List<ECGSample> getECGSamples() {
         return ecgSamples;
+    }
+
+    public void setEcgSamples(List<ECGSample> samples) {
+        ecgSamples = samples;
     }
 
     public void addECGSample(ECGSample sample) {
