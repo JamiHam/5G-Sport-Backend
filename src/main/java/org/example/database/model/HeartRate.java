@@ -1,13 +1,17 @@
 package org.example.database.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import org.example.database.deserializer.HeartRateDeserializer;
+import org.example.database.deserializer.HeartRateSerializer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "heart_rate")
+@JsonSerialize(using = HeartRateSerializer.class)
 @JsonDeserialize(using = HeartRateDeserializer.class)
 public class HeartRate {
     @Id
@@ -32,7 +36,7 @@ public class HeartRate {
     private Movesense movesense;
 
     @Transient
-    private ArrayList<RrData> rrData = new ArrayList<RrData>();
+    private List<RrData> rrData = new ArrayList<>();
 
     public HeartRate() {}
 
@@ -80,8 +84,12 @@ public class HeartRate {
         this.movesense = movesense;
     }
 
-    public ArrayList<RrData> getRrData() {
+    public List<RrData> getRrData() {
         return rrData;
+    }
+
+    public void setRrData(List<RrData> rrData) {
+        this.rrData = rrData;
     }
 
     public void addRrData(RrData data) {
