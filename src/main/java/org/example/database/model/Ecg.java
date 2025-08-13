@@ -3,23 +3,23 @@ package org.example.database.model;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
-import org.example.database.deserializer.ECGDeserializer;
-import org.example.database.deserializer.ECGSerializer;
+import org.example.database.deserializer.EcgDeserializer;
+import org.example.database.deserializer.EcgSerializer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "ecg")
-@JsonSerialize(using = ECGSerializer.class)
-@JsonDeserialize(using = ECGDeserializer.class)
-public class ECG {
+@JsonSerialize(using = EcgSerializer.class)
+@JsonDeserialize(using = EcgDeserializer.class)
+public class Ecg {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "timestamp_utc")
-    private int timestampUTC;
+    private int timestampUtc;
 
     @Column(name = "timestamp_ms")
     private int timestampMs;
@@ -33,20 +33,20 @@ public class ECG {
     private Movesense movesense;
 
     @Transient
-    List<ECGSample> ecgSamples = new ArrayList<ECGSample>();
+    List<EcgSample> ecgSamples = new ArrayList<EcgSample>();
 
-    public ECG() {}
+    public Ecg() {}
 
     public Long getId() {
         return id;
     }
 
-    public int getTimestampUTC() {
-        return timestampUTC;
+    public int getTimestampUtc() {
+        return timestampUtc;
     }
 
-    public void setTimestampUTC(int timestampUTC) {
-        this.timestampUTC = timestampUTC;
+    public void setTimestampUtc(int timestampUtc) {
+        this.timestampUtc = timestampUtc;
     }
 
     public int getTimestampMs() {
@@ -73,22 +73,22 @@ public class ECG {
         this.movesense = movesense;
     }
 
-    public List<ECGSample> getECGSamples() {
+    public List<EcgSample> getEcgSamples() {
         return ecgSamples;
     }
 
-    public void setEcgSamples(List<ECGSample> samples) {
+    public void setEcgSamples(List<EcgSample> samples) {
         ecgSamples = samples;
     }
 
-    public void addECGSample(ECGSample sample) {
+    public void addEcgSample(EcgSample sample) {
         ecgSamples.add(sample);
     }
 
     @Override
     public String toString() {
         return "{ id: " + id
-                + ", timestamp_utc: " + timestampUTC
+                + ", timestamp_utc: " + timestampUtc
                 + ", timestamp_ms: " + timestampMs
                 + ", pico_id: " + pico.getId()
                 + ", movesense_id: " + movesense.getId()

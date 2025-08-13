@@ -5,21 +5,21 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
-import org.example.database.model.ECG;
-import org.example.database.model.ECGSample;
+import org.example.database.model.Ecg;
+import org.example.database.model.EcgSample;
 import org.example.database.model.Movesense;
 import org.example.database.model.Pico;
 
 import java.io.IOException;
 import java.util.Iterator;
 
-public class ECGDeserializer extends JsonDeserializer<ECG> {
+public class EcgDeserializer extends JsonDeserializer<Ecg> {
     @Override
-    public ECG deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
+    public Ecg deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
         JsonNode node = jsonParser.getCodec().readTree(jsonParser);
 
-        ECG ecg = new ECG();
-        ecg.setTimestampUTC(node.get("Timestamp_UTC").intValue());
+        Ecg ecg = new Ecg();
+        ecg.setTimestampUtc(node.get("Timestamp_UTC").intValue());
         ecg.setTimestampMs(node.get("Timestamp_ms").intValue());
 
         Pico pico = new Pico();
@@ -32,10 +32,10 @@ public class ECGDeserializer extends JsonDeserializer<ECG> {
 
         Iterator<JsonNode> samples = node.get("Samples").values();
         while(samples.hasNext()) {
-            ECGSample sample = new ECGSample();
+            EcgSample sample = new EcgSample();
             sample.setValue(samples.next().intValue());
             sample.setEcg(ecg);
-            ecg.addECGSample(sample);
+            ecg.addEcgSample(sample);
         }
 
         return ecg;

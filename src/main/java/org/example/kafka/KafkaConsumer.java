@@ -55,7 +55,7 @@ public class KafkaConsumer {
                 dataService.handleHeartRateData(message);
                 break;
             case "sensors.ecg":
-                dataService.handleECGData(message);
+                dataService.handleEcgData(message);
                 break;
             case "sensors.gnss":
                 dataService.handleGNSSData(message);

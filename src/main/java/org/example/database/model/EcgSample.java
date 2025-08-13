@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "ecg_sample")
-public class ECGSample {
+public class EcgSample {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -13,9 +13,9 @@ public class ECGSample {
 
     @ManyToOne
     @JoinColumn(name = "ecg_id")
-    private ECG ecg;
+    private Ecg ecg;
 
-    public ECGSample() {}
+    public EcgSample() {}
 
     public int getValue() {
         return value;
@@ -25,11 +25,11 @@ public class ECGSample {
         this.value = value;
     }
 
-    public ECG getEcg() {
+    public Ecg getEcg() {
         return ecg;
     }
 
-    public void setEcg(ECG ecg) {
+    public void setEcg(Ecg ecg) {
         this.ecg = ecg;
     }
 
