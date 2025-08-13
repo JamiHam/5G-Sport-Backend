@@ -3,14 +3,14 @@ package org.example.database.model;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
-import org.example.database.deserializer.GNSSDeserializer;
-import org.example.database.deserializer.GNSSSerializer;
+import org.example.database.deserializer.GnssDeserializer;
+import org.example.database.deserializer.GnssSerializer;
 
 @Entity
 @Table(name = "gnss")
-@JsonSerialize(using = GNSSSerializer.class)
-@JsonDeserialize(using = GNSSDeserializer.class)
-public class GNSS {
+@JsonSerialize(using = GnssSerializer.class)
+@JsonDeserialize(using = GnssDeserializer.class)
+public class Gnss {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,7 +25,7 @@ public class GNSS {
     private double longitude;
 
     @Column(name = "timestamp_utc")
-    private int timestampUTC;
+    private int timestampUtc;
 
     @Column(name = "timestamp_ms")
     private int timestampMs;
@@ -34,7 +34,7 @@ public class GNSS {
     @JoinColumn(name = "pico_id")
     private Pico pico;
 
-    public GNSS() { }
+    public Gnss() { }
 
     public String getDate() {
         return date;
@@ -68,12 +68,12 @@ public class GNSS {
         this.longitude = longitude;
     }
 
-    public int getTimestampUTC() {
-        return timestampUTC;
+    public int getTimestampUtc() {
+        return timestampUtc;
     }
 
-    public void setTimestampUTC(int timestampUTC) {
-        this.timestampUTC = timestampUTC;
+    public void setTimestampUtc(int timestampUtc) {
+        this.timestampUtc = timestampUtc;
     }
 
     public int getTimestampMs() {
@@ -99,7 +99,7 @@ public class GNSS {
                 + ", date: " + date
                 + ", latitude: " + latitude
                 + ", longitude: " + longitude
-                + ", timestamp_utc: " + timestampUTC
+                + ", timestamp_utc: " + timestampUtc
                 + ", timestamp_ms: " + timestampMs
                 + ", pico_id: " + pico.getId()
                 + " }";

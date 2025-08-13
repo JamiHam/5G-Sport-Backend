@@ -3,13 +3,13 @@ package org.example.database.deserializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.example.database.model.GNSS;
+import org.example.database.model.Gnss;
 
 import java.io.IOException;
 
-public class GNSSSerializer extends JsonSerializer<GNSS> {
+public class GnssSerializer extends JsonSerializer<Gnss> {
     @Override
-    public void serialize(GNSS gnss, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+    public void serialize(Gnss gnss, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartObject();
 
         jsonGenerator.writeStringField("Pico_ID", gnss.getPico().getId());
