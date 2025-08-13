@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface EcgRepository extends CrudRepository<Ecg, Long> {
     Ecg findById(long id);
-    List<Ecg> findByTimestampUTCBetween(int start, int end);
+    List<Ecg> findByTimestampUtcBetween(int start, int end);
 }

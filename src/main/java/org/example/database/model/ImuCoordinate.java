@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "imu_coordinate")
-public class IMUCoordinate {
+public class ImuCoordinate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,9 +16,9 @@ public class IMUCoordinate {
 
     @ManyToOne
     @JoinColumn(name = "imu_id")
-    private IMU imu;
+    private Imu imu;
 
-    public IMUCoordinate() {}
+    public ImuCoordinate() {}
 
     public String getType() {
         return type;
@@ -52,11 +52,11 @@ public class IMUCoordinate {
         this.z = z;
     }
 
-    public IMU getImu() {
+    public Imu getImu() {
         return imu;
     }
 
-    public void setImu(IMU imu) {
+    public void setImu(Imu imu) {
         this.imu = imu;
     }
 

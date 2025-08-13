@@ -19,10 +19,10 @@ public class HeartRate {
     private Long id;
 
     @Column(name = "average_bpm")
-    private double averageBPM;
+    private double averageBpm;
 
     @Column(name = "timestamp_utc")
-    private int timestampUTC;
+    private int timestampUtc;
 
     @Column(name = "timestamp_ms")
     private int timestampMs;
@@ -44,20 +44,20 @@ public class HeartRate {
         return id;
     }
 
-    public double getAverageBPM() {
-        return averageBPM;
+    public double getAverageBpm() {
+        return averageBpm;
     }
 
-    public void setAverageBPM(double averageBPM) {
-        this.averageBPM = averageBPM;
+    public void setAverageBpm(double averageBpm) {
+        this.averageBpm = averageBpm;
     }
 
-    public int getTimestampUTC() {
-        return timestampUTC;
+    public int getTimestampUtc() {
+        return timestampUtc;
     }
 
-    public void setTimestampUTC(int timestampUTC) {
-        this.timestampUTC = timestampUTC;
+    public void setTimestampUtc(int timestampUtc) {
+        this.timestampUtc = timestampUtc;
     }
 
     public int getTimestampMs() {
@@ -99,8 +99,8 @@ public class HeartRate {
     @Override
     public String toString() {
         return "{ id: " + id
-                + ", average_bpm: " + averageBPM
-                + ", timestamp_utc: " + timestampUTC
+                + ", average_bpm: " + averageBpm
+                + ", timestamp_utc: " + timestampUtc
                 + ", timestamp_ms: " + timestampMs
                 + ", pico_id: " + pico.getId()
                 + ", movesense_id: " + movesense.getId()

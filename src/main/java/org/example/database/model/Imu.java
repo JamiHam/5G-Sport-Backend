@@ -3,23 +3,23 @@ package org.example.database.model;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
-import org.example.database.deserializer.IMUDeserializer;
-import org.example.database.deserializer.IMUSerializer;
+import org.example.database.deserializer.ImuDeserializer;
+import org.example.database.deserializer.ImuSerializer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "imu")
-@JsonSerialize(using = IMUSerializer.class)
-@JsonDeserialize(using = IMUDeserializer.class)
-public class IMU {
+@JsonSerialize(using = ImuSerializer.class)
+@JsonDeserialize(using = ImuDeserializer.class)
+public class Imu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "timestamp_utc")
-    private int timestampUTC;
+    private int timestampUtc;
 
     @Column(name = "timestamp_ms")
     private int timestampMs;
@@ -33,20 +33,20 @@ public class IMU {
     private Movesense movesense;
 
     @Transient
-    List<IMUCoordinate> imuCoordinates = new ArrayList<IMUCoordinate>();
+    List<ImuCoordinate> imuCoordinates = new ArrayList<ImuCoordinate>();
 
-    public IMU() {}
+    public Imu() {}
 
     public Long getId() {
         return id;
     }
 
-    public int getTimestampUTC() {
-        return timestampUTC;
+    public int getTimestampUtc() {
+        return timestampUtc;
     }
 
-    public void setTimestampUTC(int timestampUTC) {
-        this.timestampUTC = timestampUTC;
+    public void setTimestampUtc(int timestampUtc) {
+        this.timestampUtc = timestampUtc;
     }
 
     public int getTimestampMs() {
@@ -73,22 +73,22 @@ public class IMU {
         this.movesense = movesense;
     }
 
-    public List<IMUCoordinate> getIMUCoordinates() {
+    public List<ImuCoordinate> getImuCoordinates() {
         return imuCoordinates;
     }
 
-    public void setIMUCoordinates(List<IMUCoordinate> imuCoordinates) {
+    public void setImuCoordinates(List<ImuCoordinate> imuCoordinates) {
         this.imuCoordinates = imuCoordinates;
     }
 
-    public void addIMUCoordinate(IMUCoordinate coordinate) {
+    public void addImuCoordinate(ImuCoordinate coordinate) {
         imuCoordinates.add(coordinate);
     }
 
     @Override
     public String toString() {
         return "{ id: " + id
-                + ", timestamp_utc: " + timestampUTC
+                + ", timestamp_utc: " + timestampUtc
                 + ", timestamp_ms: " + timestampMs
                 + ", pico_id: " + pico.getId()
                 + ", movesense_id: " + movesense.getId()
