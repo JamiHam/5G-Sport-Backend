@@ -1,11 +1,14 @@
 package org.example.database.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import org.example.database.deserializer.GNSSDeserializer;
+import org.example.database.deserializer.GNSSSerializer;
 
 @Entity
 @Table(name = "gnss")
+@JsonSerialize(using = GNSSSerializer.class)
 @JsonDeserialize(using = GNSSDeserializer.class)
 public class GNSS {
     @Id
