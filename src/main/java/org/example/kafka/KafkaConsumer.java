@@ -1,7 +1,7 @@
 package org.example.kafka;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.example.database.DataService;
+import org.example.database.service.*;
 import org.example.websocket.WebSocketHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +23,16 @@ public class KafkaConsumer {
     private WebSocketHandler handler;
 
     @Autowired
-    private DataService dataService;
+    private ImuService imuService;
+
+    @Autowired
+    private HeartRateService heartRateService;
+
+    @Autowired
+    private EcgService ecgService;
+
+    @Autowired
+    private GnssService gnssService;
 
     private CountDownLatch latch = new CountDownLatch(1); // For testing.
     private String payload; // For testing.
@@ -33,7 +42,7 @@ public class KafkaConsumer {
         LOGGER.info("Received message from topic '{}', payload = '{}'", topic, message);
 
         broadcast(message);
-        saveToDatabase(message, topic);
+        //saveToDatabase(message, topic);
 
         payload = message;
         latch.countDown();
@@ -49,16 +58,16 @@ public class KafkaConsumer {
     private void saveToDatabase(String message, String topic) throws JsonProcessingException {
         switch (topic) {
             case "sensors.imu":
-                dataService.handleIMUData(message);
+                imuService.handleJson(message);
                 break;
             case "sensors.hr":
-                dataService.handleHeartRateData(message);
+                heartRateService.handleJson(message);
                 break;
             case "sensors.ecg":
-                dataService.handleEcgData(message);
+                ecgService.handleJson(message);
                 break;
             case "sensors.gnss":
-                dataService.handleGnssData(message);
+                gnssService.handleJson(message);
                 break;
         }
     }
