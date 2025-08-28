@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.database.DataService;
+import org.example.database.service.*;
 import org.example.kafka.KafkaConsumer;
 import org.example.kafka.KafkaProducer;
 import org.example.websocket.WebSocketHandler;
@@ -33,7 +33,16 @@ public class EmbeddedKafkaIntegrationTest {
     private WebSocketHandler handler;
 
     @MockitoBean
-    private DataService dataService;
+    private ImuService imuService;
+
+    @MockitoBean
+    private HeartRateService heartRateService;
+
+    @MockitoBean
+    private EcgService ecgService;
+
+    @MockitoBean
+    private GnssService gnssService;
 
     private String data = "test data";
 
