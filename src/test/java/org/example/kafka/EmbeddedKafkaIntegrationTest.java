@@ -1,8 +1,6 @@
-package org.example;
+package org.example.kafka;
 
 import org.example.database.service.*;
-import org.example.kafka.KafkaConsumer;
-import org.example.kafka.KafkaProducer;
 import org.example.websocket.WebSocketHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
