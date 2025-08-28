@@ -3,8 +3,8 @@ package org.example.database.model;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
-import org.example.database.deserializer.ImuDeserializer;
-import org.example.database.deserializer.ImuSerializer;
+import org.example.database.json.ImuDeserializer;
+import org.example.database.json.ImuSerializer;
 
 import java.util.ArrayList;
 import java.util.List;

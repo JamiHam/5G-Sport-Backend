@@ -3,8 +3,8 @@ package org.example.database.model;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
-import org.example.database.deserializer.GnssDeserializer;
-import org.example.database.deserializer.GnssSerializer;
+import org.example.database.json.GnssDeserializer;
+import org.example.database.json.GnssSerializer;
 
 @Entity
 @Table(name = "gnss")

@@ -3,8 +3,8 @@ package org.example.database.model;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
-import org.example.database.deserializer.EcgDeserializer;
-import org.example.database.deserializer.EcgSerializer;
+import org.example.database.json.EcgDeserializer;
+import org.example.database.json.EcgSerializer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +36,10 @@ public class Ecg {
     List<EcgSample> ecgSamples = new ArrayList<EcgSample>();
 
     public Ecg() {}
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getId() {
         return id;

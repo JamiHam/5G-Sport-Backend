@@ -3,8 +3,8 @@ package org.example.database.model;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
-import org.example.database.deserializer.HeartRateDeserializer;
-import org.example.database.deserializer.HeartRateSerializer;
+import org.example.database.json.HeartRateDeserializer;
+import org.example.database.json.HeartRateSerializer;
 
 import java.util.ArrayList;
 import java.util.List;
