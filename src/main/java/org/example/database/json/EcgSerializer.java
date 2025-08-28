@@ -1,4 +1,4 @@
-package org.example.database.deserializer;
+package org.example.database.json;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;

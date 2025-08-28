@@ -1,4 +1,4 @@
-package org.example.database.deserializer;
+package org.example.database.json;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
@@ -13,6 +13,7 @@ public class GnssSerializer extends JsonSerializer<Gnss> {
         jsonGenerator.writeStartObject();
 
         jsonGenerator.writeStringField("Pico_ID", gnss.getPico().getId());
+        jsonGenerator.writeStringField("GNSS_ID", gnss.getDeviceId());
         jsonGenerator.writeStringField("Date", gnss.getDate());
         jsonGenerator.writeNumberField("Latitude", gnss.getLatitude());
         jsonGenerator.writeNumberField("Longitude", gnss.getLongitude());
