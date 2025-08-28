@@ -1,6 +1,5 @@
-package org.example;
+package org.example.websocket;
 
-import org.example.websocket.WebSocketHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.socket.CloseStatus;

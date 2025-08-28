@@ -1,7 +1,5 @@
-package org.example;
+package org.example.websocket;
 
-import org.example.websocket.WebSocketConfig;
-import org.example.websocket.WebSocketHandler;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.springframework.beans.factory.annotation.Autowired;
