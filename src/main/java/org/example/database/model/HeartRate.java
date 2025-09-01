@@ -44,6 +44,10 @@ public class HeartRate {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public double getAverageBpm() {
         return averageBpm;
     }

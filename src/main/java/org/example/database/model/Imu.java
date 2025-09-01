@@ -41,6 +41,10 @@ public class Imu {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public int getTimestampUtc() {
         return timestampUtc;
     }
