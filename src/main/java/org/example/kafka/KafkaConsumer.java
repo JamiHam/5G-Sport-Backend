@@ -1,11 +1,15 @@
 package org.example.kafka;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.example.database.service.*;
 import org.example.websocket.WebSocketHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
@@ -18,6 +22,10 @@ import java.util.concurrent.CountDownLatch;
 @Service
 public class KafkaConsumer {
     private static final Logger LOGGER = LoggerFactory.getLogger(KafkaConsumer.class);
+    ObjectMapper objectMapper = new ObjectMapper();
+
+    @Value("${database.enabled}")
+    private boolean databaseEnabled;
 
     @Autowired
     private WebSocketHandler handler;
@@ -41,17 +49,30 @@ public class KafkaConsumer {
     public void consume(String message, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) throws IOException {
         LOGGER.info("Received message from topic '{}', payload = '{}'", topic, message);
 
-        broadcast(message);
-        //saveToDatabase(message, topic);
+        broadcast(message, topic);
+
+        if (databaseEnabled) {
+            saveToDatabase(message, topic);
+        }
 
         payload = message;
         latch.countDown();
     }
 
-    private void broadcast(String message) throws IOException {
-        if (handler != null) {
-            TextMessage convertedMessage = new TextMessage(message);
-            handler.broadcast(convertedMessage);
+    private void broadcast(String message, String topic) throws IOException {
+        message = addTopicToMessage(message, topic);
+        TextMessage convertedMessage = new TextMessage(message);
+        handler.broadcast(convertedMessage);
+    }
+
+    private String addTopicToMessage(String message, String topic) {
+        try {
+            JsonNode jsonNode = objectMapper.readTree(message);
+            ((ObjectNode)jsonNode).put("topic", topic);
+            return objectMapper.writeValueAsString(jsonNode);
+        } catch (JsonProcessingException exception) {
+            LOGGER.error("Message could not be processed as JSON: '{}'", exception.getMessage());
+            return message;
         }
     }
 
