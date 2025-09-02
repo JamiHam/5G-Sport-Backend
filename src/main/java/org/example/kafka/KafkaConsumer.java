@@ -68,7 +68,7 @@ public class KafkaConsumer {
     private String addTopicToMessage(String message, String topic) {
         try {
             JsonNode jsonNode = objectMapper.readTree(message);
-            ((ObjectNode)jsonNode).put("topic", topic);
+            ((ObjectNode)jsonNode).put("Topic", topic);
             return objectMapper.writeValueAsString(jsonNode);
         } catch (JsonProcessingException exception) {
             LOGGER.error("Message could not be processed as JSON: '{}'", exception.getMessage());

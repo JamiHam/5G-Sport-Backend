@@ -44,7 +44,7 @@ public class KafkaConsumerTest {
 
     @BeforeAll
     public void setDatabaseEnabled() {
-        message = "{\"name\":\"test\"}";
+        message = "{\"Name\":\"Test\"}";
         ReflectionTestUtils.setField(kafkaConsumer, "databaseEnabled", true);
     }
 
@@ -75,24 +75,24 @@ public class KafkaConsumerTest {
     @Test
     public void topicIsAddedToImuData() throws IOException {
         kafkaConsumer.consume(message, "sensors.imu");
-        verify(webSocketHandler).broadcast(new TextMessage("{\"name\":\"test\",\"topic\":\"sensors.imu\"}"));
+        verify(webSocketHandler).broadcast(new TextMessage("{\"Name\":\"Test\",\"Topic\":\"sensors.imu\"}"));
     }
 
     @Test
     public void topicIsAddedToHeartRateData() throws IOException {
         kafkaConsumer.consume(message, "sensors.hr");
-        verify(webSocketHandler).broadcast(new TextMessage("{\"name\":\"test\",\"topic\":\"sensors.hr\"}"));
+        verify(webSocketHandler).broadcast(new TextMessage("{\"Name\":\"Test\",\"Topic\":\"sensors.hr\"}"));
     }
 
     @Test
     public void topicIsAddedToEcgData() throws IOException {
         kafkaConsumer.consume(message, "sensors.ecg");
-        verify(webSocketHandler).broadcast(new TextMessage("{\"name\":\"test\",\"topic\":\"sensors.ecg\"}"));
+        verify(webSocketHandler).broadcast(new TextMessage("{\"Name\":\"Test\",\"Topic\":\"sensors.ecg\"}"));
     }
 
     @Test
     public void topicIsAddedToGnssData() throws IOException {
         kafkaConsumer.consume(message, "sensors.gnss");
-        verify(webSocketHandler).broadcast(new TextMessage("{\"name\":\"test\",\"topic\":\"sensors.gnss\"}"));
+        verify(webSocketHandler).broadcast(new TextMessage("{\"Name\":\"Test\",\"Topic\":\"sensors.gnss\"}"));
     }
 }
