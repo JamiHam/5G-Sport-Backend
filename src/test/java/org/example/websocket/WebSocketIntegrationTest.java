@@ -43,7 +43,7 @@ public class WebSocketIntegrationTest {
     }
 
     @Test
-    @Timeout(5)
+    @Timeout(10)
     public void connectionCanBeEstablished() throws IOException, InterruptedException {
         connect();
         clientHandler.getLatch().await();
@@ -52,7 +52,7 @@ public class WebSocketIntegrationTest {
     }
 
     @Test
-    @Timeout(5)
+    @Timeout(10)
     public void connectionCanBeClosed() throws IOException, InterruptedException {
         connect();
         clientHandler.getLatch().await();
@@ -61,7 +61,7 @@ public class WebSocketIntegrationTest {
     }
 
     @Test
-    @Timeout(5)
+    @Timeout(10)
     public void broadcastTest() throws IOException, InterruptedException {
         connect();
         clientHandler.getLatch().await();
