@@ -49,10 +49,21 @@ public class ImuService {
         saveIMUCoordinates(imu.getImuCoordinates());
     }
 
+    public List<Imu> findAllImu() {
+        List<Imu> imuList = (List<Imu>) imuRepository.findAll();
+        for (Imu imu : imuList) {
+            List<ImuCoordinate> coordinates = imuCoordinateRepository.findByImuId(imu.getId());
+            imu.setImuCoordinates(coordinates);
+        }
+        return imuList;
+    }
+
     public Imu findImuById(long id) {
         Imu imu = imuRepository.findById(id);
-        List<ImuCoordinate> coordinates = imuCoordinateRepository.findByImuId(id);
-        imu.setImuCoordinates(coordinates);
+        if (imu != null) {
+            List<ImuCoordinate> coordinates = imuCoordinateRepository.findByImuId(id);
+            imu.setImuCoordinates(coordinates);
+        }
         return imu;
     }
 

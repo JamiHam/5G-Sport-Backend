@@ -49,10 +49,21 @@ public class EcgService {
         saveEcgSamples(ecg.getEcgSamples());
     }
 
+    public List<Ecg> findAllEcg() {
+        List<Ecg> ecgList = (List<Ecg>) ecgRepository.findAll();
+        for (Ecg ecg : ecgList) {
+            List<EcgSample> samples = ecgSampleRepository.findByEcgId(ecg.getId());
+            ecg.setEcgSamples(samples);
+        }
+        return ecgList;
+    }
+
     public Ecg findEcgById(long id) {
         Ecg ecg = ecgRepository.findById(id);
-        List<EcgSample> samples = ecgSampleRepository.findByEcgId(id);
-        ecg.setEcgSamples(samples);
+        if (ecg != null) {
+            List<EcgSample> samples = ecgSampleRepository.findByEcgId(id);
+            ecg.setEcgSamples(samples);
+        }
         return ecg;
     }
 

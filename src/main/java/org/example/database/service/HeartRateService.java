@@ -49,10 +49,21 @@ public class HeartRateService {
         saveRrData(heartRate.getRrData());
     }
 
+    public List<HeartRate> findAllHeartRates() {
+        List<HeartRate> heartRates = (List<HeartRate>) heartRateRepository.findAll();
+        for (HeartRate heartRate : heartRates) {
+            List<RrData> rrData = rrDataRepository.findByHeartRateId(heartRate.getId());
+            heartRate.setRrData(rrData);
+        }
+        return heartRates;
+    }
+
     public HeartRate findHeartRateById(long id) {
         HeartRate heartRate = heartRateRepository.findById(id);
-        List<RrData> rrData = rrDataRepository.findByHeartRateId(id);
-        heartRate.setRrData(rrData);
+        if (heartRate != null) {
+            List<RrData> rrData = rrDataRepository.findByHeartRateId(id);
+            heartRate.setRrData(rrData);
+        }
         return heartRate;
     }
 

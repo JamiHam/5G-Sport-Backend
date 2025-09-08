@@ -34,6 +34,10 @@ public class GnssService {
         saveGnssData(gnss);
     }
 
+    public List<Gnss> findAllGnss() {
+        return (List<Gnss>) gnssRepository.findAll();
+    }
+
     public Gnss findGnssById(long id) {
         return gnssRepository.findById(id);
     }
@@ -41,6 +45,8 @@ public class GnssService {
     public List<Gnss> findGnssByTimestampUtcBetween(int start, int end) {
         return gnssRepository.findByTimestampUtcBetween(start, end);
     }
+
+
 
     private void saveGnssData(Gnss gnss) {
         gnssRepository.save(gnss);
