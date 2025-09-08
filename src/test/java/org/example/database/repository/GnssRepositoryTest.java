@@ -29,20 +29,18 @@ public class GnssRepositoryTest {
         picoRepository.save(pico);
 
         Gnss gnss1 = new Gnss();
-        gnss1.setDeviceId("device123");
-        gnss1.setDate("1.1.2025");
         gnss1.setLatitude(37.7749);
         gnss1.setLongitude(-122.4194);
+        gnss1.setFixQ(1);
         gnss1.setTimestampUtc(29889);
         gnss1.setTimestampMs(29889);
         gnss1.setPico(pico);
         gnssRepository.save(gnss1);
 
         Gnss gnss2 = new Gnss();
-        gnss2.setDeviceId("device321");
-        gnss2.setDate("31.12.2025");
         gnss2.setLatitude(-122.4194);
         gnss2.setLongitude(37.7749);
+        gnss2.setFixQ(1);
         gnss2.setTimestampUtc(30348);
         gnss2.setTimestampMs(30348);
         gnss2.setPico(pico);
@@ -56,14 +54,13 @@ public class GnssRepositoryTest {
         Gnss gnss3 = gnssRepository.findById(3);
 
         assertEquals("e66130100f8c9928", gnss1.getPico().getId(), "Incorrect picoId");
-        assertEquals("device123", gnss1.getDeviceId(), "Incorrect deviceId");
-        assertEquals("1.1.2025", gnss1.getDate(), "Incorrect date");
         assertEquals(37.7749, gnss1.getLatitude(), "Incorrect latitude");
         assertEquals(-122.4194, gnss1.getLongitude(), "Incorrect longitude");
+        assertEquals(1, gnss1.getFixQ(), "Incorrect FixQ");
         assertEquals(29889, gnss1.getTimestampUtc(), "Incorrect timestampUtc");
         assertEquals(29889, gnss1.getTimestampMs(), "Incorrect timestampMs");
 
-        assertEquals("31.12.2025", gnss2.getDate(), "Incorrect date");
+        assertEquals(-122.4194, gnss2.getLatitude(), "Incorrect latitude");
 
         assertNull(gnss3, "GNSS with id 3 should not exist");
     }

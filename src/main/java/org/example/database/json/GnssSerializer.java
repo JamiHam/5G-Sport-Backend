@@ -13,10 +13,9 @@ public class GnssSerializer extends JsonSerializer<Gnss> {
         jsonGenerator.writeStartObject();
 
         jsonGenerator.writeStringField("Pico_ID", gnss.getPico().getId());
-        jsonGenerator.writeStringField("GNSS_ID", gnss.getDeviceId());
-        jsonGenerator.writeStringField("Date", gnss.getDate());
         jsonGenerator.writeNumberField("Latitude", gnss.getLatitude());
         jsonGenerator.writeNumberField("Longitude", gnss.getLongitude());
+        jsonGenerator.writeNumberField("FixQ", gnss.getFixQ());
         jsonGenerator.writeNumberField("Timestamp_UTC", gnss.getTimestampUtc());
         jsonGenerator.writeNumberField("Timestamp_ms", gnss.getTimestampUtc());
 

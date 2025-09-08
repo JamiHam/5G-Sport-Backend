@@ -20,10 +20,9 @@ public class GnssDeserializer extends JsonDeserializer<Gnss> {
 
         Gnss gnss = new Gnss();
         gnss.setPico(pico);
-        gnss.setDeviceId(gnssNode.get("GNSS_ID").textValue());
-        gnss.setDate(gnssNode.get("Date").textValue());
         gnss.setLatitude(gnssNode.get("Latitude").doubleValue());
         gnss.setLongitude(gnssNode.get("Longitude").doubleValue());
+        gnss.setFixQ(gnssNode.get("FixQ").intValue());
         gnss.setTimestampUtc(gnssNode.get("Timestamp_UTC").intValue());
         gnss.setTimestampMs(gnssNode.get("Timestamp_ms").intValue());
 

@@ -18,10 +18,9 @@ public class GnssSerializerTest {
         Gnss gnss = createGnssObject();
         String actualJson = objectMapper.writeValueAsString(gnss);
         String expectedJson = "{\"Pico_ID\":\"e66130100f8c9928\"," +
-                "\"GNSS_ID\":\"device123\"," +
-                "\"Date\":\"1.1.2025\"," +
                 "\"Latitude\":37.7749," +
                 "\"Longitude\":-122.4194," +
+                "\"FixQ\":1," +
                 "\"Timestamp_UTC\":30348," +
                 "\"Timestamp_ms\":30348}";
         assertEquals(expectedJson, actualJson, "Converted GNSS object does not match expected JSON format");
@@ -34,10 +33,9 @@ public class GnssSerializerTest {
         pico.setId("e66130100f8c9928");
         gnss.setPico(pico);
 
-        gnss.setDeviceId("device123");
-        gnss.setDate("1.1.2025");
         gnss.setLatitude(37.7749);
         gnss.setLongitude(-122.4194);
+        gnss.setFixQ(1);
         gnss.setTimestampUtc(30348);
         gnss.setTimestampMs(29889);
 

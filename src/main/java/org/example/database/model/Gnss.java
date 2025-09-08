@@ -15,14 +15,12 @@ public class Gnss {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "device_id")
-    private String deviceId;
-
-    private String date;
-
     private double latitude;
 
     private double longitude;
+
+    @Column(name = "fix_q")
+    private int fixQ;
 
     @Column(name = "timestamp_utc")
     private int timestampUtc;
@@ -35,22 +33,6 @@ public class Gnss {
     private Pico pico;
 
     public Gnss() { }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getDeviceId() {
-        return deviceId;
-    }
-
-    public void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
-    }
 
     public double getLatitude() {
         return latitude;
@@ -66,6 +48,14 @@ public class Gnss {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public int getFixQ() {
+        return fixQ;
+    }
+
+    public void setFixQ(int fixQ) {
+        this.fixQ = fixQ;
     }
 
     public int getTimestampUtc() {
@@ -95,10 +85,9 @@ public class Gnss {
     @Override
     public String toString() {
         return "{ id: " + id
-                + ", device_id: " + deviceId
-                + ", date: " + date
                 + ", latitude: " + latitude
                 + ", longitude: " + longitude
+                + ", fixQ: " + fixQ
                 + ", timestamp_utc: " + timestampUtc
                 + ", timestamp_ms: " + timestampMs
                 + ", pico_id: " + pico.getId()
