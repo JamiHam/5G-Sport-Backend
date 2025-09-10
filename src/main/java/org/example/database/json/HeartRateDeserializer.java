@@ -16,7 +16,7 @@ public class HeartRateDeserializer extends JsonDeserializer<HeartRate> {
         JsonNode node = jsonParser.getCodec().readTree(jsonParser);
 
         HeartRate heartRate = new HeartRate();
-        heartRate.setAverageBpm(node.get("average_bpm").doubleValue());
+        heartRate.setAverageBpm(node.get("Average_BPM").doubleValue());
         heartRate.setTimestampUtc(node.get("Timestamp_UTC").intValue());
         heartRate.setTimestampMs(node.get("Timestamp_ms").intValue());
 

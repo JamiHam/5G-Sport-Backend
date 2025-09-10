@@ -15,7 +15,7 @@ public class HeartRateSerializer extends JsonSerializer<HeartRate> {
 
         jsonGenerator.writeStringField("Pico_ID", heartRate.getPico().getId());
         jsonGenerator.writeNumberField("Movesense_series", heartRate.getMovesense().getId());
-        jsonGenerator.writeNumberField("average_bpm", heartRate.getAverageBpm());
+        jsonGenerator.writeNumberField("Average_BPM", heartRate.getAverageBpm());
         jsonGenerator.writeNumberField("Timestamp_UTC", heartRate.getTimestampUtc());
         jsonGenerator.writeNumberField("Timestamp_ms", heartRate.getTimestampMs());
 
