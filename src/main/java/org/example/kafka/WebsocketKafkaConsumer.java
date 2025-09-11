@@ -11,11 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
+import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;
 
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 
+@Service
 public class WebsocketKafkaConsumer {
     private static final Logger LOGGER = LoggerFactory.getLogger(WebsocketKafkaConsumer.class);
     private ObjectMapper objectMapper = new ObjectMapper();
@@ -27,7 +29,7 @@ public class WebsocketKafkaConsumer {
 
     @KafkaListener(topics = "#{'${spring.kafka.topics}'.split(',')}", groupId = "${spring.kafka.group-id.websocket}")
     public void consume(String message, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) throws IOException {
-        LOGGER.info("Websocket consumer received message from topic '{}', payload = '{}'", topic, message);
+        LOGGER.info("Received message from topic '{}', payload = '{}'", topic, message);
 
         broadcast(message, topic);
 
