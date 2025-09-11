@@ -17,12 +17,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-@SpringBootTest(classes = { KafkaConsumer.class, KafkaProducer.class })
+@SpringBootTest(classes = { WebsocketKafkaConsumer.class, KafkaProducer.class })
 @EnableAutoConfiguration
 @EmbeddedKafka(bootstrapServersProperty = "spring.kafka.bootstrap-servers")
-public class EmbeddedKafkaIntegrationTest {
+public class WebsocketKafkaConsumerIntegrationTest {
     @Autowired
-    private KafkaConsumer consumer;
+    private WebsocketKafkaConsumer consumer;
 
     @Autowired
     private KafkaProducer producer;
@@ -30,19 +30,7 @@ public class EmbeddedKafkaIntegrationTest {
     @MockitoBean
     private WebSocketHandler handler;
 
-    @MockitoBean
-    private ImuService imuService;
-
-    @MockitoBean
-    private HeartRateService heartRateService;
-
-    @MockitoBean
-    private EcgService ecgService;
-
-    @MockitoBean
-    private GnssService gnssService;
-
-    private String data = "test data";
+    private String data = "{\"Name\":\"Test\"}";
 
     @BeforeEach
     public void reset() {
@@ -80,7 +68,8 @@ public class EmbeddedKafkaIntegrationTest {
 
     @Test
     public void broadcastIsCalled() throws InterruptedException, IOException {
+        String dataWithTopic = "{\"Name\":\"Test\",\"Topic\":\"sensors.imu\"}";
         sendDataAndAwait("sensors.imu");
-        verify(handler, times(1)).broadcast(new TextMessage(data));
+        verify(handler, times(1)).broadcast(new TextMessage(dataWithTopic));
     }
 }

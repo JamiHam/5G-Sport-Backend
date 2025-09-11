@@ -1,11 +1,7 @@
 package org.example.kafka;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.example.database.service.*;
-import org.example.websocket.WebSocketHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,21 +10,18 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Service;
-import org.springframework.web.socket.TextMessage;
 
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 
 @Service
-public class KafkaConsumer {
-    private static final Logger LOGGER = LoggerFactory.getLogger(KafkaConsumer.class);
-    ObjectMapper objectMapper = new ObjectMapper();
+public class DatabaseKafkaConsumer {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseKafkaConsumer.class);
+    private CountDownLatch latch = new CountDownLatch(1); // For testing.
+    private String payload; // For testing.
 
     @Value("${database.enabled}")
     private boolean databaseEnabled;
-
-    @Autowired
-    private WebSocketHandler handler;
 
     @Autowired
     private ImuService imuService;
@@ -42,14 +35,9 @@ public class KafkaConsumer {
     @Autowired
     private GnssService gnssService;
 
-    private CountDownLatch latch = new CountDownLatch(1); // For testing.
-    private String payload; // For testing.
-
-    @KafkaListener(topics = "#{'${spring.kafka.topics}'.split(',')}", groupId = "${spring.kafka.group-id}")
+    @KafkaListener(topics = "#{'${spring.kafka.topics}'.split(',')}", groupId = "${spring.kafka.group-id.database}")
     public void consume(String message, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) throws IOException {
         LOGGER.info("Received message from topic '{}', payload = '{}'", topic, message);
-
-        broadcast(message, topic);
 
         if (databaseEnabled) {
             saveToDatabase(message, topic);
@@ -57,23 +45,6 @@ public class KafkaConsumer {
 
         payload = message;
         latch.countDown();
-    }
-
-    private void broadcast(String message, String topic) throws IOException {
-        message = addTopicToMessage(message, topic);
-        TextMessage convertedMessage = new TextMessage(message);
-        handler.broadcast(convertedMessage);
-    }
-
-    private String addTopicToMessage(String message, String topic) {
-        try {
-            JsonNode jsonNode = objectMapper.readTree(message);
-            ((ObjectNode)jsonNode).put("Topic", topic);
-            return objectMapper.writeValueAsString(jsonNode);
-        } catch (JsonProcessingException exception) {
-            LOGGER.error("Message could not be processed as JSON: '{}'", exception.getMessage());
-            return message;
-        }
     }
 
     private void saveToDatabase(String message, String topic) throws JsonProcessingException {
