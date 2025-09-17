@@ -1,6 +1,6 @@
 package org.example.database.controller;
 
-import org.example.database.model.HeartRate;
+import org.example.database.entity.HeartRate;
 import org.example.database.service.HeartRateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -3,8 +3,8 @@ package org.example.database.json;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.example.database.model.Ecg;
-import org.example.database.model.EcgSample;
+import org.example.database.entity.Ecg;
+import org.example.database.entity.EcgSample;
 
 import java.io.IOException;
 

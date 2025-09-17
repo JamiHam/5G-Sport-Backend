@@ -2,10 +2,10 @@ package org.example.database.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.database.model.Imu;
-import org.example.database.model.ImuCoordinate;
-import org.example.database.model.Movesense;
-import org.example.database.model.Pico;
+import org.example.database.entity.Imu;
+import org.example.database.entity.ImuCoordinate;
+import org.example.database.entity.Movesense;
+import org.example.database.entity.Pico;
 import org.example.database.repository.ImuCoordinateRepository;
 import org.example.database.repository.ImuRepository;
 import org.slf4j.Logger;

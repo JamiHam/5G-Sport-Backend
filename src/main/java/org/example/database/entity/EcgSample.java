@@ -1,4 +1,4 @@
-package org.example.database.model;
+package org.example.database.entity;
 
 import jakarta.persistence.*;
 

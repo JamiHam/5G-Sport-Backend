@@ -1,6 +1,6 @@
 package org.example.database.controller;
 
-import org.example.database.model.Imu;
+import org.example.database.entity.Imu;
 import org.example.database.service.ImuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

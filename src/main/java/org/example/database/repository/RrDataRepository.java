@@ -1,6 +1,6 @@
 package org.example.database.repository;
 
-import org.example.database.model.RrData;
+import org.example.database.entity.RrData;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

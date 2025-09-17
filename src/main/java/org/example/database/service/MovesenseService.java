@@ -1,9 +1,7 @@
 package org.example.database.service;
 
-import org.example.database.model.Movesense;
-import org.example.database.model.Pico;
+import org.example.database.entity.Movesense;
 import org.example.database.repository.MovesenseRepository;
-import org.example.database.repository.PicoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

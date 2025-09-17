@@ -2,10 +2,8 @@ package org.example.database.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.database.model.Ecg;
-import org.example.database.model.EcgSample;
-import org.example.database.model.Imu;
-import org.example.database.model.ImuCoordinate;
+import org.example.database.entity.Imu;
+import org.example.database.entity.ImuCoordinate;
 import org.example.database.repository.ImuCoordinateRepository;
 import org.example.database.repository.ImuRepository;
 import org.junit.jupiter.api.BeforeAll;

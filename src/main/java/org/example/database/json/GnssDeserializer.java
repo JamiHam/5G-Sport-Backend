@@ -5,8 +5,8 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
-import org.example.database.model.Gnss;
-import org.example.database.model.Pico;
+import org.example.database.entity.Gnss;
+import org.example.database.entity.Pico;
 
 import java.io.IOException;
 

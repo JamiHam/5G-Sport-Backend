@@ -3,8 +3,8 @@ package org.example.database.json;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.example.database.model.Imu;
-import org.example.database.model.ImuCoordinate;
+import org.example.database.entity.Imu;
+import org.example.database.entity.ImuCoordinate;
 
 import java.io.IOException;
 import java.util.List;

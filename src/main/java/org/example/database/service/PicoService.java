@@ -1,6 +1,6 @@
 package org.example.database.service;
 
-import org.example.database.model.Pico;
+import org.example.database.entity.Pico;
 import org.example.database.repository.PicoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

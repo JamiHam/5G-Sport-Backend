@@ -5,10 +5,10 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
-import org.example.database.model.Ecg;
-import org.example.database.model.EcgSample;
-import org.example.database.model.Movesense;
-import org.example.database.model.Pico;
+import org.example.database.entity.Ecg;
+import org.example.database.entity.EcgSample;
+import org.example.database.entity.Movesense;
+import org.example.database.entity.Pico;
 
 import java.io.IOException;
 import java.util.Iterator;

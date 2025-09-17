@@ -1,9 +1,7 @@
 package org.example.database.repository;
 
-import org.example.database.model.Ecg;
-import org.example.database.model.EcgSample;
-import org.example.database.model.Imu;
-import org.example.database.model.ImuCoordinate;
+import org.example.database.entity.Imu;
+import org.example.database.entity.ImuCoordinate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

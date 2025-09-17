@@ -1,6 +1,6 @@
 package org.example.database.repository;
 
-import org.example.database.model.EcgSample;
+import org.example.database.entity.EcgSample;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

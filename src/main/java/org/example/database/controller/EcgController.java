@@ -1,6 +1,6 @@
 package org.example.database.controller;
 
-import org.example.database.model.Ecg;
+import org.example.database.entity.Ecg;
 import org.example.database.service.EcgService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

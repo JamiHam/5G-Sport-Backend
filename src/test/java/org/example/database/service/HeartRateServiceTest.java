@@ -2,10 +2,8 @@ package org.example.database.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.database.model.Ecg;
-import org.example.database.model.EcgSample;
-import org.example.database.model.HeartRate;
-import org.example.database.model.RrData;
+import org.example.database.entity.HeartRate;
+import org.example.database.entity.RrData;
 import org.example.database.repository.HeartRateRepository;
 import org.example.database.repository.RrDataRepository;
 import org.junit.jupiter.api.BeforeAll;

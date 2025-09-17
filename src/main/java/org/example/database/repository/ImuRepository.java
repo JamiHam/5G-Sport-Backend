@@ -1,6 +1,6 @@
 package org.example.database.repository;
 
-import org.example.database.model.Imu;
+import org.example.database.entity.Imu;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

@@ -2,10 +2,10 @@ package org.example.database.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.database.model.Ecg;
-import org.example.database.model.EcgSample;
-import org.example.database.model.Movesense;
-import org.example.database.model.Pico;
+import org.example.database.entity.Ecg;
+import org.example.database.entity.EcgSample;
+import org.example.database.entity.Movesense;
+import org.example.database.entity.Pico;
 import org.example.database.repository.EcgRepository;
 import org.example.database.repository.EcgSampleRepository;
 import org.slf4j.Logger;

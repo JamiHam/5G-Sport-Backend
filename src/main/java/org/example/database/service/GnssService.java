@@ -2,8 +2,8 @@ package org.example.database.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.database.model.Gnss;
-import org.example.database.model.Pico;
+import org.example.database.entity.Gnss;
+import org.example.database.entity.Pico;
 import org.example.database.repository.GnssRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,8 +45,6 @@ public class GnssService {
     public List<Gnss> findGnssByTimestampUtcBetween(int start, int end) {
         return gnssRepository.findByTimestampUtcBetween(start, end);
     }
-
-
 
     private void saveGnssData(Gnss gnss) {
         gnssRepository.save(gnss);

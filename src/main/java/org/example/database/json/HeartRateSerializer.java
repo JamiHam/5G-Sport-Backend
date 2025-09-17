@@ -3,8 +3,8 @@ package org.example.database.json;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.example.database.model.HeartRate;
-import org.example.database.model.RrData;
+import org.example.database.entity.HeartRate;
+import org.example.database.entity.RrData;
 
 import java.io.IOException;
 

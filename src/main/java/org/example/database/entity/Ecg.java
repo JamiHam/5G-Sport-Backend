@@ -1,25 +1,22 @@
-package org.example.database.model;
+package org.example.database.entity;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
-import org.example.database.json.HeartRateDeserializer;
-import org.example.database.json.HeartRateSerializer;
+import org.example.database.json.EcgDeserializer;
+import org.example.database.json.EcgSerializer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "heart_rate")
-@JsonSerialize(using = HeartRateSerializer.class)
-@JsonDeserialize(using = HeartRateDeserializer.class)
-public class HeartRate {
+@Table(name = "ecg")
+@JsonSerialize(using = EcgSerializer.class)
+@JsonDeserialize(using = EcgDeserializer.class)
+public class Ecg {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "average_bpm")
-    private double averageBpm;
 
     @Column(name = "timestamp_utc")
     private int timestampUtc;
@@ -36,24 +33,16 @@ public class HeartRate {
     private Movesense movesense;
 
     @Transient
-    private List<RrData> rrData = new ArrayList<>();
+    List<EcgSample> ecgSamples = new ArrayList<EcgSample>();
 
-    public HeartRate() {}
-
-    public Long getId() {
-        return id;
-    }
+    public Ecg() {}
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public double getAverageBpm() {
-        return averageBpm;
-    }
-
-    public void setAverageBpm(double averageBpm) {
-        this.averageBpm = averageBpm;
+    public Long getId() {
+        return id;
     }
 
     public int getTimestampUtc() {
@@ -88,22 +77,21 @@ public class HeartRate {
         this.movesense = movesense;
     }
 
-    public List<RrData> getRrData() {
-        return rrData;
+    public List<EcgSample> getEcgSamples() {
+        return ecgSamples;
     }
 
-    public void setRrData(List<RrData> rrData) {
-        this.rrData = rrData;
+    public void setEcgSamples(List<EcgSample> samples) {
+        ecgSamples = samples;
     }
 
-    public void addRrData(RrData data) {
-        rrData.add(data);
+    public void addEcgSample(EcgSample sample) {
+        ecgSamples.add(sample);
     }
 
     @Override
     public String toString() {
         return "{ id: " + id
-                + ", average_bpm: " + averageBpm
                 + ", timestamp_utc: " + timestampUtc
                 + ", timestamp_ms: " + timestampMs
                 + ", pico_id: " + pico.getId()

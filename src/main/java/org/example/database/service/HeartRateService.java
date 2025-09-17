@@ -2,10 +2,10 @@ package org.example.database.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.database.model.HeartRate;
-import org.example.database.model.Movesense;
-import org.example.database.model.Pico;
-import org.example.database.model.RrData;
+import org.example.database.entity.HeartRate;
+import org.example.database.entity.Movesense;
+import org.example.database.entity.Pico;
+import org.example.database.entity.RrData;
 import org.example.database.repository.HeartRateRepository;
 import org.example.database.repository.RrDataRepository;
 import org.slf4j.Logger;

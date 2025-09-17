@@ -5,10 +5,10 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
-import org.example.database.model.Imu;
-import org.example.database.model.ImuCoordinate;
-import org.example.database.model.Movesense;
-import org.example.database.model.Pico;
+import org.example.database.entity.Imu;
+import org.example.database.entity.ImuCoordinate;
+import org.example.database.entity.Movesense;
+import org.example.database.entity.Pico;
 
 import java.io.IOException;
 import java.util.Iterator;

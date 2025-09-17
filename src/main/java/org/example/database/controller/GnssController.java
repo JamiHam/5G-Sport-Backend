@@ -1,6 +1,6 @@
 package org.example.database.controller;
 
-import org.example.database.model.Gnss;
+import org.example.database.entity.Gnss;
 import org.example.database.service.GnssService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

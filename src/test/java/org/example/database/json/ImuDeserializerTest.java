@@ -1,7 +1,7 @@
 package org.example.database.json;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.database.model.Imu;
+import org.example.database.entity.Imu;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;

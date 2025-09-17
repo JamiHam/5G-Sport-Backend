@@ -3,7 +3,7 @@ package org.example.database.json;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.example.database.model.Gnss;
+import org.example.database.entity.Gnss;
 
 import java.io.IOException;
 

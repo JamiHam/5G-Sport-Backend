@@ -1,7 +1,7 @@
 package org.example.database.repository;
 
-import org.example.database.model.Ecg;
-import org.example.database.model.EcgSample;
+import org.example.database.entity.Ecg;
+import org.example.database.entity.EcgSample;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package org.example.database.repository;
 
-import org.example.database.model.HeartRate;
+import org.example.database.entity.HeartRate;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

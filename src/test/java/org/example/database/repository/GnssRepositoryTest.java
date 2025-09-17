@@ -1,7 +1,7 @@
 package org.example.database.repository;
 
-import org.example.database.model.Gnss;
-import org.example.database.model.Pico;
+import org.example.database.entity.Gnss;
+import org.example.database.entity.Pico;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

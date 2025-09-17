@@ -1,9 +1,7 @@
 package org.example.database.repository;
 
-import org.example.database.model.Ecg;
-import org.example.database.model.EcgSample;
-import org.example.database.model.HeartRate;
-import org.example.database.model.RrData;
+import org.example.database.entity.HeartRate;
+import org.example.database.entity.RrData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
