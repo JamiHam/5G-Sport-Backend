@@ -18,8 +18,8 @@ import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 
 @Service
-public class WebsocketKafkaConsumer {
-    private static final Logger LOGGER = LoggerFactory.getLogger(WebsocketKafkaConsumer.class);
+public class WebSocketKafkaConsumer {
+    private static final Logger LOGGER = LoggerFactory.getLogger(WebSocketKafkaConsumer.class);
     private ObjectMapper objectMapper = new ObjectMapper();
     private CountDownLatch latch = new CountDownLatch(1); // For testing.
     private String payload; // For testing.

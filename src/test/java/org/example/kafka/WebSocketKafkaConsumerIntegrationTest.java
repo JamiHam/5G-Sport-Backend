@@ -1,6 +1,5 @@
 package org.example.kafka;
 
-import org.example.database.service.*;
 import org.example.websocket.WebSocketHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,12 +16,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-@SpringBootTest(classes = { WebsocketKafkaConsumer.class, KafkaProducer.class })
+@SpringBootTest(classes = { WebSocketKafkaConsumer.class, KafkaProducer.class })
 @EnableAutoConfiguration
 @EmbeddedKafka(bootstrapServersProperty = "spring.kafka.bootstrap-servers")
-public class WebsocketKafkaConsumerIntegrationTest {
+public class WebSocketKafkaConsumerIntegrationTest {
     @Autowired
-    private WebsocketKafkaConsumer consumer;
+    private WebSocketKafkaConsumer consumer;
 
     @Autowired
     private KafkaProducer producer;

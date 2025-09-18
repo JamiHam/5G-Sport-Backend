@@ -15,13 +15,13 @@ import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class WebsocketKafkaConsumerTest {
+public class WebSocketKafkaConsumerTest {
 
     @Mock
     private WebSocketHandler webSocketHandler;
 
     @InjectMocks
-    private WebsocketKafkaConsumer kafkaConsumer = new WebsocketKafkaConsumer();
+    private WebSocketKafkaConsumer kafkaConsumer = new WebSocketKafkaConsumer();
 
     private String message = "{\"Name\":\"Test\"}";
 
